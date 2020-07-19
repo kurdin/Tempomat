@@ -21,8 +21,7 @@ let placeHolderStyle: any = {
 }
 
 function openGithubGuide() {
-  Linking.openURL(`
-  https://tempomat.dev/githubTokenGuide/`)
+  Linking.openURL(`https://tempomat.dev/githubTokenGuide/`)
 }
 
 export const GithubActionsConfigContainer = observer(() => {
