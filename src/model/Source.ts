@@ -4,4 +4,5 @@ export enum Source {
   travisci = `TravisCI`,
   bitrise = `Bitrise`,
   github = `Github`,
+  gitlab = `Gitlab`,
 }

@@ -54,7 +54,7 @@ export const AddTokenContainer = observer(({navigation}: IProps) => {
               <View style={styles.row}>
                 <Row
                   style={{
-                    padding: global.metrics.pl,
+                    paddingHorizontal: global.metrics.pl,
                   }}
                   vertical="center">
                   <Text>{label}</Text>
@@ -62,6 +62,7 @@ export const AddTokenContainer = observer(({navigation}: IProps) => {
                   <Switch
                     value={label === source}
                     onValueChange={() => setSource(label)}
+                    style={global.isMacOS ? styles.macOSSwitch : undefined}
                   />
                 </Row>
                 {ii !== sources.length - 2 && (
@@ -158,5 +159,12 @@ const styles = StyleSheet.create({
       },
     },
     padding: global.metrics.pm,
+  },
+  macOSSwitch: {
+    paddingVertical: 0,
+    marginVertical: 0,
+    padding: 0,
+    margin: 0,
+    marginTop: 0,
   },
 })

@@ -15,6 +15,7 @@ import {
   GithubWorkflowDto,
   GithubWorkflowInfoDto,
 } from "model/dto/Github.dto"
+import {GitlabProjectDto} from "model/dto/Gitlab.dto"
 
 interface AjaxCallParams {
   auth?: string
@@ -386,5 +387,33 @@ export class ApiStore {
         },
       },
     })
+  }
+
+  public async fetchGitlabNodes(key: string): Promise<Node[]> {
+    let projects: GitlabProjectDto[] = await this.get({
+      url: `https://gitlab.com/api/v4/projects?visibility=private&simple=true`,
+      headers: {
+        Authorization: `Bearer ${key}`,
+      },
+    })
+
+    let pipelines = projects.map((p) =>
+      this.get({
+        url: `https://gitlab.com/api/v4/projects/${p.id}/pipelines`,
+        headers: {
+          Authorization: `Bearer ${key}`,
+        },
+      }),
+    )
+
+    let resolvedPipelines = await Promise.all(pipelines)
+
+    let nodes = resolvedPipelines
+      .map((pipeline, ii) =>
+        DtoMapper.mapGitlabTupleToNodes(projects[ii], pipeline, key),
+      )
+      .flat()
+
+    return nodes
   }
 }

@@ -10,6 +10,7 @@ import {
   BitriseStatus,
 } from "model/dto/Bitrise.dto"
 import {GithubWorkflowDto, GithubWorkflowRunInfo} from "model/dto/Github.dto"
+import {GitlabProjectDto, GitlabPipelineDto} from "model/dto/Gitlab.dto"
 
 export class DtoMapper {
   static mapGithubReposToNodes(repos: CircleciRepoDto[], key: string): Node[] {
@@ -222,5 +223,44 @@ export class DtoMapper {
     node.vcs = VCS.github
     node.key = key
     return node
+  }
+
+  static mapGitlabTupleToNodes(
+    project: GitlabProjectDto,
+    pipelines: GitlabPipelineDto[],
+    key: string,
+  ): Node[] {
+    return pipelines.map((pipeline) => {
+      let node = new Node()
+      let status = Status.pending
+
+      switch (pipeline.status) {
+        case `failed`:
+          status = Status.failed
+          break
+        case `running`:
+          status = Status.running
+          break
+        case `success`:
+          status = Status.passed
+          break
+        case `canceled`:
+          status = Status.failed
+          break
+      }
+
+      node.id = `${Source.gitlab}-${project.name}-${pipeline.id}`
+      node.url = pipeline.web_url
+      node.label = `${Source.gitlab}-${project.name}-${pipeline.ref} #${pipeline.id}`
+      node.date = pipeline.created_at
+      node.status = status
+      node.jobId = pipeline.id
+      node.source = Source.gitlab
+      // @TODO vcs should be gitlab
+      node.vcs = VCS.github
+      node.key = key
+
+      return node
+    })
   }
 }

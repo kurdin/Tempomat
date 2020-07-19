@@ -167,6 +167,9 @@ export class NodeStore {
         case Source.bitrise:
           return this.root.api.fetchBitriseNodes(t.key)
 
+        case Source.gitlab:
+          return this.root.api.fetchGitlabNodes(t.key)
+
         default:
           break
       }

@@ -33,9 +33,22 @@ function getTextStyle(hovered: boolean) {
   return baseStyle
 }
 
+function getTintColorForState(status: Status) {
+  switch (status) {
+    case Status.passed:
+      return `#27CA42`
+    case Status.failed:
+      return `#FC4943`
+    case Status.pending:
+      return {dynamic: {light: `#37474F`, dark: `#DDD`}}
+    case Status.running:
+      return `#FFBE30`
+  }
+}
+
 export const NodeRow = observer(({node}: IProps) => {
   let store = useStore()
-  let icon = Images[`${node.source.toLowerCase()}_${node.status}`]
+  let icon = Images[`${node.source.toLowerCase()}`]
   let [hovered, setHovered] = useState(false)
 
   let showQuickActions = hovered || Platform.OS !== `macos`
@@ -62,7 +75,11 @@ export const NodeRow = observer(({node}: IProps) => {
       onMouseLeave={() => setHovered(false)}
       onPress={openUrl}>
       <Row vertical="center" style={styles.row}>
-        <Image source={icon} style={iconStyle} />
+        {/* @ts-ignore */}
+        <Image
+          source={icon}
+          style={[iconStyle, {tintColor: getTintColorForState(node.status)}]}
+        />
         <Text style={getTextStyle(hovered)}>{node.label}</Text>
         <Spacer />
         {/* {showQuickActions && (
@@ -73,7 +90,7 @@ export const NodeRow = observer(({node}: IProps) => {
         )} */}
         {showQuickActions && !!node.buildUrl && (
           <TouchableOpacity onPress={triggerRebuild}>
-            <Icon name="refresh" size={18} />
+            <Icon name="refresh" style={styles.quickAction} />
           </TouchableOpacity>
         )}
       </Row>
@@ -97,7 +114,18 @@ const styles = StyleSheet.create({
     width: global.metrics.imgSmall,
     resizeMode: `contain`,
     margin: global.metrics.ps,
+    //@ts-ignore
     tintColor: {
+      dynamic: {
+        dark: `#EEE`,
+        light: `#313232`,
+      },
+    },
+  },
+  quickAction: {
+    fontSize: 18,
+    //@ts-ignore
+    color: {
       dynamic: {
         dark: `#EEE`,
         light: `#313232`,

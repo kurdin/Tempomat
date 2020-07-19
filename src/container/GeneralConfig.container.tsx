@@ -81,12 +81,19 @@ export const GeneralConfigContainer = observer(({navigation}: IProps) => {
             <View key={`token-${idx}`}>
               <Row style={{padding: global.metrics.pl}}>
                 <Image
-                  source={Images[`${t.source.toLowerCase()}_pending`]}
+                  source={Images[`${t.source.toLowerCase()}`]}
+                  // @ts-ignore
                   style={{
                     height: global.metrics.imgSmall,
                     width: global.metrics.imgSmall,
                     resizeMode: `contain`,
                     marginRight: global.metrics.pm,
+                    tintColor: {
+                      dynamic: {
+                        light: `#37474F`,
+                        dark: `white`,
+                      },
+                    },
                   }}
                 />
                 <Text>{t.name}</Text>

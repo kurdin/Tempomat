@@ -40,9 +40,9 @@ export const NodeListContainer = observer(({navigation}: IProps) => {
           renderItem={renderNodeItem}
           keyExtractor={(i) => i.label}
           style={styles.list}
-          ListEmptyComponent={() => (
+          ListEmptyComponent={
             <EmptyNodesComponent onAddToken={goToAddTokenScreen} />
-          )}
+          }
         />
         <Row style={styles.actionBar} vertical="center">
           <TouchableOpacity

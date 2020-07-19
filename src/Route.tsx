@@ -89,5 +89,8 @@ export const Navigator = createStackNavigator(
         <MacosHeaderComponent navigation={navigation} />
       ) : undefined,
     }),
+    cardStyle: {
+      backgroundColor: `transparent`,
+    },
   },
 )
