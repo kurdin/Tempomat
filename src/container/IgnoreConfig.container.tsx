@@ -83,7 +83,7 @@ export const IgnoreConfigContainer = observer(() => {
       </Text>
       <View style={styles.row}>
         <TextInput
-          style={{padding: global.metrics.pm}}
+          style={styles.input}
           placeholder="Insert your regex here..."
           value={regex}
           onChangeText={setRegex}
@@ -130,6 +130,16 @@ let styles = StyleSheet.create({
       dynamic: {
         light: `white`,
         dark: `#1E1E1E`,
+      },
+    },
+  },
+  input: {
+    padding: global.metrics.pm,
+    // @ts-ignore
+    color: {
+      dynamic: {
+        light: `black`,
+        dark: `white`,
       },
     },
   },
