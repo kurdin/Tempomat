@@ -25,11 +25,14 @@ export const IgnoreConfigContainer = observer(() => {
   let [error, setError] = useState(false)
 
   function addRegex() {
-    let inserted = nodeStore.addIgnoredRegex(regex)
-    if (!inserted) {
-      setError(true)
-    } else {
-      setRegex(``)
+    let tempRegex = regex.trim()
+    if (tempRegex !== ``) {
+      let inserted = nodeStore.addIgnoredRegex(tempRegex)
+      if (!inserted) {
+        setError(true)
+      } else {
+        setRegex(``)
+      }
     }
   }
   return (
@@ -45,10 +48,7 @@ export const IgnoreConfigContainer = observer(() => {
       <FlatList
         data={nodeStore.regexesToIgnore}
         renderItem={(info) => (
-          <View
-            style={{
-              backgroundColor: global.colors.gray050,
-            }}>
+          <View>
             <Row
               style={{
                 padding: global.metrics.pl,
