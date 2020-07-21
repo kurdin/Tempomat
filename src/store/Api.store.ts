@@ -16,6 +16,7 @@ import {
   GithubWorkflowInfoDto,
 } from "model/dto/Github.dto"
 import {GitlabProjectDto} from "model/dto/Gitlab.dto"
+import {DateTime} from "luxon"
 
 interface AjaxCallParams {
   auth?: string
@@ -256,9 +257,18 @@ export class ApiStore {
       this.fetchBitriseRepoBranches(apps.data[ii], b.data, key),
     )
 
-    let resolvedNodes = await Promise.all(nodesPromises)
+    let resolvedNodesArray = await Promise.all(nodesPromises)
 
-    return resolvedNodes.flat()
+    let resolvedNodes = resolvedNodesArray
+      .flat()
+      // @TODO: Potential performance gain, move this before parsing node
+      .filter((n) => {
+        let nodeBuildDate = DateTime.fromISO(n.date!)
+        let dayDiff = DateTime.local().diff(nodeBuildDate, `day`).days
+        return dayDiff <= 7
+      })
+
+    return resolvedNodes
   }
 
   private async fetchBitriseRepoBranches(
