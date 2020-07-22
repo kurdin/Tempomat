@@ -1,16 +1,16 @@
 # Tempomat
 
-Tempomat is a monitor for your CI pipelines, the main app sits on the macOS menu bar and displays numbers to show you how many builds are broken/pending/passed, with companion apps for iPhone and iPad.
+Tempomat is a monitor for your CI pipelines, the main app sits on the macOS menu bar and displays how many builds are broken/pending/passed, with companion apps for iPhone and iPad.
 
 ![Tempomat Preview](https://github.com/ospfranco/tempomat/blob/master/assets/SmallBanner.jpg?raw=true)
 
 It supports the following CI/CD systems:
-- Circle CI
-- Github Actions
-- Travis CI
-- Bitrise
-- Microsoft Appcenter
-- Gitlab (no hosted instances atm, only public service)
+- **Circle CI**
+- **Github Actions**
+- **Travis CI**
+- **Bitrise**
+- **Microsoft Appcenter**
+- **Gitlab (only public service)**
 
 The project was heavily inspired by [CCMenu](http://ccmenu.org), which is still functional and free, however it has some limitations, ex. it only show the status of the `master` branch, it is a read-only integration, it cannot interact with the APIs of the systems, **Tempomat** solves all this issues by integrating directly with the APIs, meaning a richer integration
 
