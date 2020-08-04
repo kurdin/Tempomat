@@ -40,9 +40,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     if let button = self.statusBarItem.button {
       button.imagePosition = NSControl.ImagePosition.imageLeft
-      button.image = NSImage(named: "IconSmall")
+      button.image = NSImage(named: "initial")
       button.action = #selector(togglePopover(_:))
-      button.title = "0 0 0"
     }
   }
 
@@ -59,34 +58,23 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   }
 
   func setStatusText(failed: NSInteger, running: NSInteger, passed: NSInteger) {
-    let ciString = NSAttributedString(string: "")
-
-    var failedAttributes = [NSAttributedString.Key: Any]()
-    if failed > 0 {
-        failedAttributes[NSAttributedString.Key.foregroundColor] = NSColor.systemRed
+    var statuses: [String] = []
+    if(running > 0) {
+      statuses.append("pending")
     }
-    let failedText = NSAttributedString(string: " \(failed) ", attributes: failedAttributes)
-
-    let successAttributes = [
-        NSAttributedString.Key.foregroundColor: NSColor.systemGreen
-    ]
-    let successText = NSAttributedString(string: " \(passed) ", attributes: successAttributes)
-
-    var runningAttributes = [NSAttributedString.Key: Any]()
-    if running > 0 {
-        runningAttributes[NSAttributedString.Key.foregroundColor] = NSColor.systemOrange
+    if(failed > 0) {
+      statuses.append("failed")
     }
-    let runningText = NSAttributedString(string: " \(running) ", attributes: runningAttributes)
-
-    let finalText = NSMutableAttributedString()
-
-    finalText.append(ciString)
-    finalText.append(failedText)
-    finalText.append(runningText)
-    finalText.append(successText)
+    if(passed > 0) {
+      statuses.append("passed")
+    }
 
     if let button = self.statusBarItem.button {
-        button.attributedTitle = finalText
+      if(statuses.count > 0) {
+        button.image = NSImage(named: statuses.joined(separator: "_"))
+      } else {
+        button.image = NSImage(named: "initial")
+      }
     }
   }
 
