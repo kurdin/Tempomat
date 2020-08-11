@@ -1,4 +1,4 @@
-import {NodeRow, Row, EmptyNodesComponent} from "component"
+import {NodeRow, Row, EmptyNodesComponent, TempoButton} from "component"
 import {observer} from "mobx-react"
 import {Node} from "model"
 import React from "react"
@@ -39,6 +39,18 @@ export const NodeListContainer = observer(({navigation}: IProps) => {
     <>
       <SafeAreaView style={styles.safeAreaView1} />
       <SafeAreaView style={styles.safeAreaView2}>
+        {!root.nodeStore.shareDismissed && (
+          <Row style={styles.banner} vertical="center">
+            <Text style={{fontWeight: `bold`, flex: 1}}>
+              Tempomat is independently developed, help by sharing it with your
+              friends!
+            </Text>
+            <TempoButton
+              title="Dismiss"
+              onPress={root.nodeStore.dismissShare}
+            />
+          </Row>
+        )}
         <FlatList
           data={root.nodeStore.sortedFilteredNodes}
           renderItem={renderNodeItem}
@@ -94,7 +106,23 @@ const styles = StyleSheet.create({
   },
   safeAreaView2: {
     flex: 1,
-    backgroundColor: `white`,
+    //@ts-ignore
+    backgroundColor: {
+      dynamic: {
+        light: global.colors.gray010,
+        dark: global.colors.gray800,
+      },
+    },
+  },
+  banner: {
+    padding: global.metrics.pl,
+    //@ts-ignore
+    backgroundColor: {
+      dynamic: {
+        light: global.colors.gray050,
+        dark: global.colors.gray900,
+      },
+    },
   },
   list: {
     flex: 1,

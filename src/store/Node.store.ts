@@ -26,6 +26,8 @@ export class NodeStore {
   @observable public startAtLogin = false
   @observable public fetchInterval = global.isMacOS ? 1 : 15
 
+  @observable public shareDismissed = false
+
   private intervalHandle: any
 
   constructor(root: RootStore) {
@@ -399,5 +401,9 @@ export class NodeStore {
 
   @action setGithubRepoAtIndex = (t: string, ii: number) => {
     this.githubRepos[ii] = t
+  }
+
+  @action dismissShare = () => {
+    this.shareDismissed = true
   }
 }
