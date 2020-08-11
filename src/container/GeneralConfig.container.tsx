@@ -52,151 +52,153 @@ export const GeneralConfigContainer = observer(({navigation}: IProps) => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Row vertical="center">
+    <View style={styles.container}>
+      <ScrollView style={{flex: 1}} showsVerticalScrollIndicator>
+        <Row vertical="center">
+          <Text
+            style={{
+              padding: global.metrics.pl,
+            }}>
+            TOKENS
+          </Text>
+          <Spacer />
+          <TempoButton
+            onPress={() => navigation.navigate(`AddToken`)}
+            title="Add token"
+          />
+        </Row>
+
+        {!tokens.length && (
+          <View style={styles.noTokensView}>
+            <Text style={{color: global.colors.gray400}}>
+              No tokens have been saved
+            </Text>
+          </View>
+        )}
+
+        <View style={styles.row}>
+          {tokens.map((t, idx) => {
+            return (
+              <View key={`token-${idx}`}>
+                <Row
+                  style={{
+                    paddingVertical: global.metrics.pm,
+                    paddingHorizontal: global.metrics.pl,
+                  }}>
+                  <Image
+                    source={Images[`${t.source.toLowerCase()}`]}
+                    // @ts-ignore
+                    style={{
+                      height: global.metrics.imgSmall,
+                      width: global.metrics.imgSmall,
+                      resizeMode: `contain`,
+                      marginRight: global.metrics.pm,
+                      tintColor: {
+                        dynamic: {
+                          light: `#37474F`,
+                          dark: `white`,
+                        },
+                      },
+                    }}
+                  />
+                  <Text>{t.name}</Text>
+                  <Spacer />
+                  <TouchableOpacity
+                    onPress={() => nodeStore.removeTokenByName(t.name)}>
+                    <Icon name="delete" color={`red`} size={20} />
+                  </TouchableOpacity>
+                </Row>
+                {idx !== tokens.length - 1 && (
+                  <Divider width="95%" alignSelf="flex-end" />
+                )}
+              </View>
+            )
+          })}
+        </View>
+        {/* General config */}
         <Text
           style={{
             padding: global.metrics.pl,
+            marginTop: global.metrics.pl,
           }}>
-          TOKENS
+          GENERAL
         </Text>
-        <Spacer />
-        <TempoButton
-          onPress={() => navigation.navigate(`AddToken`)}
-          title="Add token"
-        />
-      </Row>
 
-      {!tokens.length && (
-        <View style={styles.noTokensView}>
-          <Text style={{color: global.colors.gray400}}>
-            No tokens have been saved
-          </Text>
-        </View>
-      )}
-
-      <View style={styles.row}>
-        {tokens.map((t, idx) => {
-          return (
-            <View key={`token-${idx}`}>
-              <Row style={{padding: global.metrics.pl}}>
-                <Image
-                  source={Images[`${t.source.toLowerCase()}`]}
-                  // @ts-ignore
-                  style={{
-                    height: global.metrics.imgSmall,
-                    width: global.metrics.imgSmall,
-                    resizeMode: `contain`,
-                    marginRight: global.metrics.pm,
-                    tintColor: {
-                      dynamic: {
-                        light: `#37474F`,
-                        dark: `white`,
-                      },
-                    },
-                  }}
-                />
-                <Text>{t.name}</Text>
+        {global.isMacOS && (
+          <TouchableOpacity
+            onPress={() => navigation.navigate(`PollingIntervalConfig`)}>
+            <View style={styles.row}>
+              <Row
+                style={{
+                  padding: global.metrics.pl,
+                }}
+                vertical="center">
+                <Text>Polling Interval (minutes)</Text>
                 <Spacer />
-                <TouchableOpacity
-                  onPress={() => nodeStore.removeTokenByName(t.name)}>
-                  <Icon name="delete" color={`red`} size={20} />
-                </TouchableOpacity>
+                <Text style={{paddingRight: global.metrics.pl}}>
+                  {nodeStore.fetchInterval}
+                </Text>
+                <FoIcon
+                  name="chevron-right"
+                  size={14}
+                  color={global.colors.gray200}
+                />
               </Row>
-              {idx !== tokens.length - 1 && (
-                <Divider width="95%" alignSelf="flex-end" />
-              )}
+              <Divider width="95%" alignSelf="flex-end" />
             </View>
-          )
-        })}
-      </View>
-      {/* General config */}
-      <Text
-        style={{
-          padding: global.metrics.pl,
-          marginTop: global.metrics.pl,
-        }}>
-        GENERAL
-      </Text>
+          </TouchableOpacity>
+        )}
 
-      {global.isMacOS && (
-        <TouchableOpacity
-          onPress={() => navigation.navigate(`PollingIntervalConfig`)}>
-          <View style={styles.row}>
-            <Row
-              style={{
-                padding: global.metrics.pl,
-              }}
-              vertical="center">
-              <Text>Polling Interval (minutes)</Text>
-              <Spacer />
-              <Text style={{paddingRight: global.metrics.pl}}>
-                {nodeStore.fetchInterval}
-              </Text>
-              <FoIcon
-                name="chevron-right"
-                size={14}
-                color={global.colors.gray200}
-              />
-            </Row>
-            <Divider width="95%" alignSelf="flex-end" />
-          </View>
-        </TouchableOpacity>
-      )}
-
-      <View style={styles.row}>
-        <Row
-          style={{
-            padding: global.metrics.pl,
-          }}
-          vertical="center">
-          <Text>Notifications on broken builds</Text>
-          <Spacer />
-          <Switch
-            value={nodeStore.notificationsEnabled}
-            onValueChange={nodeStore.setNotificationsEnabled}
-          />
-        </Row>
-        {global.isMacOS && <Divider width="95%" alignSelf="flex-end" />}
-      </View>
-
-      {global.isMacOS && (
         <View style={styles.row}>
           <Row
             style={{
               padding: global.metrics.pl,
             }}
             vertical="center">
-            <Text>Launch on login</Text>
+            <Text>Notifications on broken builds</Text>
             <Spacer />
             <Switch
-              value={nodeStore.startAtLogin}
-              onValueChange={nodeStore.setStartAtLogin}
+              value={nodeStore.notificationsEnabled}
+              onValueChange={nodeStore.setNotificationsEnabled}
             />
           </Row>
+          {global.isMacOS && <Divider width="95%" alignSelf="flex-end" />}
         </View>
-      )}
-
-      <View style={styles.buttonContainer}>
-        {/* <Image source={Images.tempomat} /> */}
 
         {global.isMacOS && (
-          <TempoButton title="Review on App Store" onPress={openAppStore} />
-        )}
-        <TempoButton title="Support" onPress={openMail} />
-        <TempoButton title="Source Code" onPress={openGithub} />
-        {global.isMacOS && (
-          <TempoButton title="Quit" onPress={nodeStore.closeApp} />
+          <View style={styles.row}>
+            <Row
+              style={{
+                padding: global.metrics.pl,
+              }}
+              vertical="center">
+              <Text>Launch on login</Text>
+              <Spacer />
+              <Switch
+                value={nodeStore.startAtLogin}
+                onValueChange={nodeStore.setStartAtLogin}
+              />
+            </Row>
+          </View>
         )}
 
-        <Text style={{fontSize: global.metrics.tl}}>Tempomat</Text>
-        <Text>Oscar Franco, 2020</Text>
-        {/* <TempoButton
-          title="Test notification"
-          onPress={() => nodeStore.sendNativeNotification(`Test notification`)}
-        /> */}
-      </View>
-    </ScrollView>
+        <View style={styles.buttonContainer}>
+          {global.isMacOS && (
+            <TempoButton title="Review on App Store" onPress={openAppStore} />
+          )}
+          <TempoButton title="Source Code on Github" onPress={openGithub} />
+          <TempoButton title="Request Support" onPress={openMail} />
+          {global.isMacOS && (
+            <TempoButton title="Quit" onPress={nodeStore.closeApp} />
+          )}
+
+          {/* <TempoButton
+            title="Test notification"
+            onPress={() => nodeStore.sendNativeNotification(`Test notification`)}
+          /> */}
+        </View>
+      </ScrollView>
+    </View>
   )
 })
 

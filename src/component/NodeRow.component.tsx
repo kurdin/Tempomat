@@ -24,12 +24,14 @@ function getTextStyle(hovered: boolean) {
   let baseStyle: any = {
     width: `80%`,
     flexWrap: `wrap`,
+    fontSize: 14,
   }
 
   if (hovered) {
-    baseStyle.color = global.colors.blue500
-    return baseStyle
+    // baseStyle.color = global.colors.blue500
+    baseStyle.fontWeight = `bold`
   }
+
   return baseStyle
 }
 
@@ -71,6 +73,8 @@ export const NodeRow = observer(({node}: IProps) => {
   return (
     <TouchableOpacity
       // @ts-ignore
+      enableFocusRing={false}
+      // @ts-ignore
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onPress={openUrl}>
@@ -100,20 +104,20 @@ export const NodeRow = observer(({node}: IProps) => {
 
 const styles = StyleSheet.create({
   row: {
-    paddingVertical: Platform.OS === `macos` ? 0 : global.metrics.ps,
+    paddingVertical: global.metrics.ps,
     paddingHorizontal: global.metrics.ps,
   },
   rowIcon: {
     height: global.metrics.imgSmall,
     width: global.metrics.imgSmall,
     resizeMode: `contain`,
-    margin: global.metrics.ps,
+    marginHorizontal: global.metrics.ps,
   },
   rowIconPending: {
     height: global.metrics.imgSmall,
     width: global.metrics.imgSmall,
     resizeMode: `contain`,
-    margin: global.metrics.ps,
+    marginHorizontal: global.metrics.ps,
     //@ts-ignore
     tintColor: {
       dynamic: {
@@ -123,7 +127,7 @@ const styles = StyleSheet.create({
     },
   },
   quickAction: {
-    fontSize: 18,
+    fontSize: 15,
     //@ts-ignore
     color: {
       dynamic: {

@@ -71,8 +71,7 @@ export const IgnoreConfigContainer = observer(() => {
             </Text>
           </View>
         }
-        contentContainerStyle={styles.listContainer}
-        style={{flex: 1}}
+        style={styles.list}
       />
 
       <Text
@@ -113,23 +112,23 @@ let styles = StyleSheet.create({
       },
     },
   },
-  listContainer: {
-    flex: 1,
-    // @ts-ignore
-    backgroundColor: {
-      dynamic: {
-        light: global.colors.gray010,
-        dark: global.colors.gray900,
-      },
-    },
-  },
   row: {
     padding: global.metrics.pl,
     //@ts-ignore
     backgroundColor: {
       dynamic: {
         light: `white`,
-        dark: `#1E1E1E`,
+        dark: global.colors.gray900,
+      },
+    },
+  },
+  list: {
+    flex: 1,
+    //@ts-ignore
+    backgroundColor: {
+      dynamic: {
+        light: global.colors.gray010,
+        dark: global.colors.gray900,
       },
     },
   },

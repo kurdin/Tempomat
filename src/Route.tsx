@@ -59,7 +59,7 @@ const ConfigurationStack = createBottomTabNavigator(
       style: {
         backgroundColor: {
           dynamic: {
-            dark: global.colors.gray800,
+            dark: global.colors.gray900,
             light: `white`,
           },
         },

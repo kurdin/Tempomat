@@ -24,7 +24,7 @@ export const TempoButton = ({onPress, title, primary}: IProps) => {
 }
 
 const styles = StyleSheet.create({
-  flatButton: {color: global.colors.blue500, fontSize: 14},
+  flatButton: {color: global.colors.blue500, fontSize: 14, fontWeight: `600`},
   primaryButton: {
     margin: global.metrics.pl,
     padding: global.metrics.pl,

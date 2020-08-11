@@ -1,6 +1,7 @@
 global.colors = {
+  blue800: `#37474F`,
   gray900: `#313232`,
-  gray800: `#37474F`,
+  gray800: `#444`,
   gray500: `#555`,
   gray400: `#777`,
   gray300: `#AAA`,

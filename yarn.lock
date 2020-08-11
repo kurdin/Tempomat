@@ -5829,10 +5829,10 @@ react-native-global-props@^1.1.5:
   resolved "https://registry.yarnpkg.com/react-native-global-props/-/react-native-global-props-1.1.5.tgz#443e0ffc89d5402fa20ebedf37bcbca6d861c34d"
   integrity sha512-QDeAdRel6zyJfbgyFxZi9QXZe78OdlANxJae0rJn76uTqdt/A+iWBVjJy3NmaN/fpKy0uV0HhW6Hu4xM0QCisQ==
 
-react-native-macos@^0.61.55:
-  version "0.61.55"
-  resolved "https://registry.yarnpkg.com/react-native-macos/-/react-native-macos-0.61.55.tgz#a76e24707e62c644790d4789e08dccfed5de2d72"
-  integrity sha512-o3e28CW9gCFci+eAxezQ3FtQR0TjZrIPe+zWtup2ZDZLyU8fJSqRmIhfCaJ6EgicKejBFgSCFwLgrs68XPbl8g==
+react-native-macos@^0.61.65:
+  version "0.61.65"
+  resolved "https://registry.yarnpkg.com/react-native-macos/-/react-native-macos-0.61.65.tgz#99e285aa34d3b6456cf238106d2c4e95b2e4496d"
+  integrity sha512-EsxE4gDXjemEzU6fYMlm7EHmRBDty4ccrY+vfoxrVPdsXviag5I2P/q86QHQj9ki8JKJ0gpURcdAZsSXFgcfqA==
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^3.0.0"

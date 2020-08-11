@@ -1,4 +1,4 @@
-import {NodeRow, Row, Spacer, EmptyNodesComponent} from "component"
+import {NodeRow, Row, EmptyNodesComponent} from "component"
 import {observer} from "mobx-react"
 import {Node} from "model"
 import React from "react"
@@ -20,12 +20,16 @@ let ICON_SIZE = Platform.OS === `macos` ? 16 : 24
 
 interface IProps extends NavigationScreenProps {}
 
+function labelExtractor(i: Node) {
+  return i.label
+}
+
+function renderNodeItem(info: ListRenderItemInfo<Node>) {
+  return <NodeRow node={info.item} />
+}
+
 export const NodeListContainer = observer(({navigation}: IProps) => {
   let root = useStore()
-
-  function renderNodeItem(info: ListRenderItemInfo<Node>) {
-    return <NodeRow node={info.item} />
-  }
 
   function goToAddTokenScreen() {
     navigation.navigate(`AddToken`)
@@ -38,23 +42,26 @@ export const NodeListContainer = observer(({navigation}: IProps) => {
         <FlatList
           data={root.nodeStore.sortedFilteredNodes}
           renderItem={renderNodeItem}
-          keyExtractor={(i) => i.label}
+          keyExtractor={labelExtractor}
           style={styles.list}
+          contentContainerStyle={styles.listContainer}
           ListEmptyComponent={
             <EmptyNodesComponent onAddToken={goToAddTokenScreen} />
           }
         />
-        <Row style={styles.actionBar} vertical="center">
+        <Row
+          style={styles.actionBar}
+          vertical="center"
+          horizontal="space-between">
           <TouchableOpacity
             onPress={() => navigation.navigate(`GeneralConfig`)}>
             <Icon name="settings" style={styles.iconStyle} size={ICON_SIZE} />
           </TouchableOpacity>
-          <Spacer />
           <TouchableOpacity
             onPress={root.nodeStore.toggleSorting}
             style={styles.sortingButton}>
             <Row vertical="center">
-              <Icon name="sort" size={ICON_SIZE} style={styles.iconStyle} />
+              <Text style={styles.sortLabel}>Sort by </Text>
               <Text style={styles.sortText}>{root.nodeStore.sortingKey}</Text>
             </Row>
           </TouchableOpacity>
@@ -93,8 +100,14 @@ const styles = StyleSheet.create({
     flex: 1,
     //@ts-ignore
     backgroundColor: {
-      dynamic: {light: global.colors.gray010, dark: global.colors.gray800},
+      dynamic: {
+        light: global.colors.gray010,
+        dark: global.colors.gray800,
+      },
     },
+  },
+  listContainer: {
+    paddingVertical: 10,
   },
   rowIcon: {
     height: global.metrics.imgSmall,
@@ -116,11 +129,20 @@ const styles = StyleSheet.create({
     height: 0,
   },
   sortText: {
-    paddingHorizontal: global.metrics.pm,
     //@ts-ignore
     color: {
       dynamic: {
-        light: global.colors.gray800,
+        light: global.colors.blue800,
+        dark: global.colors.gray010,
+      },
+    },
+    fontWeight: `700`,
+  },
+  sortLabel: {
+    //@ts-ignore
+    color: {
+      dynamic: {
+        light: global.colors.blue800,
         dark: global.colors.gray010,
       },
     },
