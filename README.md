@@ -1,6 +1,6 @@
 # Tempomat
 
-Tempomat is a monitor for your CI pipelines, the main app sits on the macOS menu bar and displays how many builds are broken/pending/passed, with companion apps for iPhone and iPad.
+Tempomat is a monitor for your CI pipelines, the main app sits on the macOS menu bar and displays the status of your CI builds, you can also trigger a rebuild immediately.
 
 ![Tempomat Preview](https://github.com/ospfranco/tempomat/blob/master/assets/SmallBanner.jpg?raw=true)
 
@@ -10,9 +10,7 @@ It supports the following CI/CD systems:
 - **Travis CI**
 - **Bitrise**
 - **Microsoft Appcenter**
-- **Gitlab (only public service)**
-
-The project was heavily inspired by [CCMenu](http://ccmenu.org), which is still functional and free, however it has some limitations, ex. it only show the status of the `master` branch, it is a read-only integration, it cannot interact with the APIs of the systems, **Tempomat** solves all this issues by integrating directly with the APIs, meaning a richer integration
+- **Gitlab (Cloud Service)**
 
 [Get it on the app store](https://apps.apple.com/de/app/tempomat-ci-status-monitor/i`d1509296762?l=en)
 
@@ -24,6 +22,8 @@ The project was heavily inspired by [CCMenu](http://ccmenu.org), which is still 
 - Receive a notification when a build breaks
 - Trigger rebuild right from your desktop
 
+The project was heavily inspired by [CCMenu](http://ccmenu.org), CCMenu however has some limitations, it only show the status of the `master` branch, it is a read-only integration, it cannot interact with the APIs of the systems, **Tempomat** solves all this issues by integrating directly with the APIs, it needs to be maintained but it offers a richer integration and the ability to trigger actions on the CI systems.
+
 ## Licensing
 Tempomat is licensed under the Outrun Labs EULA 1.1.
 
@@ -33,6 +33,8 @@ The TL;DR is:
 - Commercial use requires the purchase of a license.
 - You may not redistribute source code or binaries under a different license.
 
-There is nothing stopping you from building the project from the source and just running it yourself, just don't try to rebrand it an sell it under a different name, there is a packaged version on the app stores for a small fee which would be a great way of giving back.
 
-[Get it on the app store](https://apps.apple.com/de/app/tempomat-ci-status-monitor/i`d1509296762?l=en)
+## Let's get real
+I cannot stop you from building the project from the source and just running it yourself, that being said, you cannot rebrand it or re-distribute it, by buying a copy from the AppStore not only you help me maintain the project, but you will also receive updates automatically and custom support in case you have any trouble.
+
+So please, [buy it on the app store](https://apps.apple.com/de/app/tempomat-ci-status-monitor/i`d1509296762?l=en).
