@@ -2,7 +2,7 @@
 
 Tempomat is a monitor for your CI pipelines, the main app sits on the macOS menu bar and displays how many builds are broken/pending/passed, with companion apps for iPhone and iPad.
 
-![Tempomat Preview](https://github.com/ospfranco/tempomat/blob/master/assets/SmallBanner.jpg?raw=true)
+![Tempomat Preview](https://github.com/ospfranco/tempomat/blob/master/assets/SmallBanner.png?raw=true)
 
 It supports the following CI/CD systems:
 - **Circle CI**
